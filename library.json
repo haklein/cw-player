@@ -1,6 +1,6 @@
 {
   "name": "cw-player",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Plays CW (Morsecode) from a string via sidetone callback",
   "keywords": "morse, cw, hamradio",
   "repository":
