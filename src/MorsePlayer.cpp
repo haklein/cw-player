@@ -1,6 +1,5 @@
 #include "MorsePlayer.h"
 
-
 std::string char2morse(char c)
 {
 	switch (toupper(c)) {
@@ -113,17 +112,15 @@ std::string char2morse(char c)
 }
 
 MorsePlayer::MorsePlayer(sidetone_fun_ptr sidetone_cb) {
-
     this->sidetone_cb = sidetone_cb;
 }
 
-
 void MorsePlayer::play(const char *text, int wpm) {
-  int dot_delay = 1200 / wpm; // wpm 
-  static int cw_keyer_weight = 55;
-  int dash_delay = (dot_delay * 3 * cw_keyer_weight) / 50;
-
+	int dot_delay = 1200 / wpm; // wpm 
+	static int cw_keyer_weight = 55;
+	int dash_delay = (dot_delay * 3 * cw_keyer_weight) / 50;
 	bool prosign = false;
+
 	while (*text) {
 		if (text[0] == '<') prosign=true;
 		if (text[0] == '>') prosign=false;
@@ -132,14 +129,14 @@ void MorsePlayer::play(const char *text, int wpm) {
 		while (*c) {
 			switch (c[0]) {
 				case '.':
-                    this->sidetone_cb(true);
+					this->sidetone_cb(true);
 					usleep(dot_delay*1000);
-                    this->sidetone_cb(false);
+					this->sidetone_cb(false);
 					break;
 				case '-':
-                    this->sidetone_cb(true);
+					this->sidetone_cb(true);
 					usleep(dash_delay*1000);
-                    this->sidetone_cb(false);
+					this->sidetone_cb(false);
 					break;
 			}
 			c++;
@@ -148,5 +145,4 @@ void MorsePlayer::play(const char *text, int wpm) {
 		text++;
 		if (!prosign) usleep(dot_delay * 2 * 1000);	// 2 + inner loop = 3 times dot delay as space
 	}
-
 }
